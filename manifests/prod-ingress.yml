@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ppe-web-${webapp-name}
+  annotations:
+   ingress.kubernetes.io/rewrite-target: /
+   ingress.kubernetes.io/ssl-redirect: "true"
+   ingress.kubernetes.io/use-port-in-redirects: "true"
+   kubernetes.io/ingress.class: tectonic
+spec:
+  tls:
+  - hosts:
+    - ppe.elsevier.com
+  rules:
+  - host: ppe.elsevier.com
+    http:
+      paths:
+      - path: /web/ppe-web-${webapp-name}
+        backend:
+          serviceName: ppe-web-${webapp-name}
+          servicePort: 4000

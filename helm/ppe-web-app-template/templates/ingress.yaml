@@ -1,0 +1,29 @@
+{{if .Values.ingress.enabled}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{if .Values.ingress.tls.enabled}}
+  tls:
+  - hosts:
+    - {{ .Values.global.ingress.host }}
+{{end}}
+{{if .Values.ingress.backend.enabled}}
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+{{end}}
+  rules:
+  - host: {{ .Values.global.ingress.host }}
+    http:
+      paths:
+      - path: /web/{{ .Chart.Name }}
+        backend:
+          serviceName: {{ .Chart.Name }}
+          servicePort: {{ .Values.service.port }}
+{{end}}

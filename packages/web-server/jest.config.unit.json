@@ -1,0 +1,5 @@
+{
+  "coverageDirectory": "coverage/unit",
+  "moduleDirectories": ["node_modules"],
+  "coveragePathIgnorePatterns": ["/node_modules/"]
+}

@@ -1,0 +1,40 @@
+pipeline {
+
+  agent {
+    label 'master'
+  }
+
+  parameters {
+    string(name: 'IMAGE_TAG', defaultValue: 'ppe-uat', description: 'Docker image tag which should be deployed to prod')
+  }
+
+  environment {
+    DOCKER_REPO = "798283861836.dkr.ecr.eu-west-1.amazonaws.com"
+    IMAGE = 'ppe-web-${webapp-name}'
+    K8S_CLUSTER = "k8s-tectonic-prod"
+  }
+
+  stages {
+
+    stage('Deploy to PROD') {
+      steps {
+        deploy('${DOCKER_REPO}/${IMAGE}:${IMAGE_TAG}', 'ppe-prod', '${K8S_CLUSTER}')
+        createIngress('ppe-prod', 'prod-ingress.yml', '${K8S_CLUSTER}')
+      }
+    }
+
+  }
+
+  post {
+    success {
+      echo 'posting success to GitLab'
+      updateGitlabCommitStatus(name: 'jenkins-build', state: 'success')
+      slackNotifySuccess(currentBuild.getPreviousBuild(), JOB_NAME, BUILD_NUMBER, BUILD_URL)
+    }
+    failure {
+      echo 'posting failure to GitLab'
+      updateGitlabCommitStatus(name: 'jenkins-build', state: 'failed')
+      slackNotifyFailure(currentBuild.getPreviousBuild(), JOB_NAME, BUILD_NUMBER, BUILD_URL)
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "coverageDirectory": "coverage/unit",
+  "coveragePathIgnorePatterns": ["/node_modules/", "/jest/", "/__pacts__/", "/src/api/", "/config/"],
+  "moduleNameMapper": {
+    "\\.(svg)$": "<rootDir>/__mocks__/svg.jsx"
+  },
+  "setupFiles": ["<rootDir>/jest/jest.setup.unit.js", "jest-localstorage-mock", "<rootDir>/jest/jest.jsdom.setup.js"]
+}

@@ -1,0 +1,21 @@
+/*
+ * The apps toolbar
+ */
+
+.c-toolbar {
+  height: 100%;
+  padding-left: $ppe-spacing-unit-lg;
+  padding-right: $ppe-spacing-unit-lg;
+  border-bottom: $login-header-border-width solid $ppe-color-blue;
+}
+
+.c-toolbar-header h2 {
+  display: inline-block;
+}
+
+.c-toolbar-header__text {
+  margin: 0;
+
+  @include ppe-font-size('lg');
+  white-space: nowrap;
+}

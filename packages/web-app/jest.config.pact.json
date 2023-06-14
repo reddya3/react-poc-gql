@@ -1,0 +1,8 @@
+{
+  "coverageDirectory": "coverage/pact",
+  "coveragePathIgnorePatterns": ["/node_modules/", "/jest/", "/__tests__/", "/config/"],
+  "setupFiles": ["<rootDir>/jest/jest.setup.pact.js", "jest-localstorage-mock"],
+  "testEnvironment": "node",
+  "testMatch": ["**/__pacts__/**/*.js"],
+  "modulePathIgnorePatterns": ["/pacts/"]
+}

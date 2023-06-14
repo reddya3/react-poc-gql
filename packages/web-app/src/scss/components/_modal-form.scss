@@ -1,0 +1,14 @@
+$ppe-modal-form-overlay-background: rgba(235, 235, 235, 0.85);
+
+.c-modal-form {
+  z-index: 1;
+}
+
+.c-modal-form__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $ppe-modal-form-overlay-background;
+}

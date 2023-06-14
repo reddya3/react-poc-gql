@@ -1,0 +1,47 @@
+{
+  "devDependencies": {
+    "@pact-foundation/pact-node": "^6.21.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "3.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "2.7.0",
+    "eslint-plugin-react": "^7.12.3",
+    "husky": "^1.3.1",
+    "lerna": "^3.10.1",
+    "lint-staged": "^8.1.0",
+    "prettier": "1.12.1",
+    "prettier-eslint-cli": "^4.7.1",
+    "stylelint": "^9.9.0",
+    "stylelint-config-nebula": "^0.2.0"
+  },
+  "private": true,
+  "scripts": {
+    "bootstrap": "yarn && lerna bootstrap && lerna run bootstrap",
+    "build": "./scripts/build.sh",
+    "test": "lerna run test --scope web-app --stream && lerna run test --scope web-server --scope bff-mock --stream",
+    "test:pact:publish": "node pact/publish.js",
+    "lint": "eslint --ext .js,.jsx,.mjs . && stylelint **/*.scss",
+    "precommit": "lint-staged",
+    "start:web-app": "lerna run start --scope web-app --stream",
+    "start:web-app:mock": "lerna run start --scope bff-mock --scope auth-mock --stream & lerna run start:mock --scope web-app --stream",
+    "start:web-server": "lerna run build --scope web-app && lerna run start --scope web-server --stream",
+    "start:web-server:mock":
+      "lerna run build --scope web-app && lerna run start --scope bff-mock --scope auth-mock --stream & lerna run start:mock --scope web-server --stream"
+  },
+  "lint-staged": {
+    "*.js": ["prettier-eslint --write", "git add"],
+    "*.mjs": ["prettier-eslint --write", "git add"],
+    "*.jsx": ["prettier-eslint --write", "git add"],
+    "*.json": ["prettier-eslint --write", "git add"]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+
+}

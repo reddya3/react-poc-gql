@@ -1,0 +1,28 @@
+/*
+ * App container provides the highest level of layout for the application.
+ * The toolbar strip and the content area.
+ */
+
+$app-container-toolbar-height: 51px;
+
+.c-app-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c-app-container__toolbar {
+  height: $app-container-toolbar-height;
+}
+
+.c-app-container__content {
+  display: flex;
+  flex-flow: column;
+  top: $app-container-toolbar-height;
+  background-color: $ppe-color-grey-lightest;
+  height: calc(100% - #{$app-container-toolbar-height});
+  padding: $ppe-spacing-unit-md $ppe-spacing-unit-lg;
+  padding-bottom: $ppe-spacing-unit-lg;
+}
